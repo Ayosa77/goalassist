@@ -8,23 +8,16 @@ declare global {
   }
 }
 
-export default function PayPalButton({
-  amount,
-  description,
-}: {
-  amount: string;
-  description: string;
-}) {
-  const btnIdPayPal = `paypal-btn-${amount.replace(".", "-")}`;
-  const btnIdCard = `card-btn-${amount.replace(".", "-")}`;
+export default function PayPalButton({ productToken }: { productToken: string }) {
+  const btnIdPayPal = `paypal-btn-${productToken}`;
+  const btnIdCard = `card-btn-${productToken}`;
 
   useEffect(() => {
     if (!window.paypal) return;
 
-    // 🧹 IMPORTANT : on nettoie les conteneurs pour éviter les doublons
+    // Nettoyage
     const containerPaypal = document.getElementById(btnIdPayPal);
     const containerCard = document.getElementById(btnIdCard);
-
     if (containerPaypal) containerPaypal.innerHTML = "";
     if (containerCard) containerCard.innerHTML = "";
 
@@ -46,13 +39,13 @@ export default function PayPalButton({
           return fetch("/api/paypal/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount }),
+            body: JSON.stringify({ productToken }),
           })
             .then((res) => res.json())
             .then((order) => order.id);
         },
 
-        onApprove(data: { orderID: string }) {
+        onApprove(data: any) {
           return fetch("/api/paypal/capture", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -82,13 +75,13 @@ export default function PayPalButton({
           return fetch("/api/paypal/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount }),
+            body: JSON.stringify({ productToken }),
           })
             .then((res) => res.json())
             .then((order) => order.id);
         },
 
-        onApprove(data: { orderID: string }) {
+        onApprove(data: any) {
           return fetch("/api/paypal/capture", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -99,7 +92,7 @@ export default function PayPalButton({
         },
       })
       .render(`#${btnIdCard}`);
-  }, [amount]);
+  }, [productToken]);
 
   return (
     <div className="flex flex-col gap-3 mt-4 w-full">
