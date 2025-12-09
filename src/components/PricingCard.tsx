@@ -4,20 +4,22 @@ import PayPalButton from "./PayPalButton";
 
 export default function PricingCard({
   duration,
-  price,
+  price = "0",   // ← valeur par défaut pour éviter undefined
   href,
   promo,
   message,
   highlight,
 }: {
   duration: string;
-  price: string;
-  href: string;
+  price?: string;     // ← maintenant optionnel
+  href?: string;
   promo?: string;
   message?: string;
   highlight?: boolean;
 }) {
-  const numericPrice = price.replace(",", ".").replace("€", "").trim();
+  // Protection maximale : jamais undefined
+  const numericPrice =
+    price?.replace(",", ".")?.replace("€", "")?.trim() || "0";
 
   return (
     <div
@@ -35,12 +37,12 @@ export default function PricingCard({
         </div>
       )}
 
-      {/* Duration */}
+      {/* Durée */}
       <h3 className="text-xl font-semibold text-gray-100 mb-2 tracking-tight">
         {duration}
       </h3>
 
-      {/* Price */}
+      {/* Prix affiché */}
       <p className="text-3xl font-bold text-white mb-1">{price}</p>
 
       {/* Message */}
@@ -50,18 +52,20 @@ export default function PricingCard({
         </p>
       )}
 
-      {/* Zone claire pour les boutons PayPal */}
+      {/* Bloc clair pour PayPal */}
       <div className="w-full bg-gray-100 rounded-xl p-4 shadow-inner border border-gray-300">
         <PayPalButton amount={numericPrice} description={`Abonnement ${duration}`} />
       </div>
 
-      {/* Lien Stripe (désactivé) */}
-      <a
-        href={href}
-        className="mt-4 text-xs text-gray-500 hover:text-gray-300 transition"
-      >
-        (Stripe – désactivé)
-      </a>
+      {/* Ancien lien Stripe (optionnel) */}
+      {href && (
+        <a
+          href={href}
+          className="mt-4 text-xs text-gray-500 hover:text-gray-300 transition"
+        >
+          (Stripe – désactivé)
+        </a>
+      )}
     </div>
   );
 }
