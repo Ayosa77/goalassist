@@ -22,7 +22,7 @@ export default function TarifsPage() {
           Nos offres
         </motion.h1>
 
-        {/* CONTAINER animé avec stagger */}
+        {/* CONTAINER animé */}
         <motion.div
           className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto"
           initial="hidden"
@@ -31,13 +31,11 @@ export default function TarifsPage() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: {
-                staggerChildren: 0.15,
-              },
+              transition: { staggerChildren: 0.15 },
             },
           }}
         >
-          {/* PricingCard wrapper — permet l'animation individuelle */}
+          {/* 1 MOIS */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -47,11 +45,11 @@ export default function TarifsPage() {
             <PricingCard
               duration="1 mois"
               price="6,99 €"
-              href="STRIPE_LINK_1MOIS"
               message="Parfait pour découvrir le service."
             />
           </motion.div>
 
+          {/* 3 MOIS */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -61,12 +59,12 @@ export default function TarifsPage() {
             <PricingCard
               duration="3 mois"
               price="14,99 €"
-              href="STRIPE_LINK_3MOIS"
               promo="-29% d’économie"
               message="Un trimestre d’assistance premium à prix réduit."
             />
           </motion.div>
 
+          {/* 6 MOIS */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -76,12 +74,12 @@ export default function TarifsPage() {
             <PricingCard
               duration="6 mois"
               price="24,99 €"
-              href="STRIPE_LINK_6MOIS"
               promo="-40% d’économie"
               message="Pensé pour profiter sereinement toute la saison."
             />
           </motion.div>
 
+          {/* 12 MOIS */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -91,7 +89,6 @@ export default function TarifsPage() {
             <PricingCard
               duration="12 mois"
               price="39,99 €"
-              href="STRIPE_LINK_12MOIS"
               promo="-52% d’économie"
               message="La solution la plus rentable pour l’année."
               highlight={true}

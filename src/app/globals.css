@@ -3,7 +3,6 @@
 /* --------------------------------------------
    THEME VARIABLES
 --------------------------------------------- */
-
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
@@ -26,7 +25,6 @@
 /* --------------------------------------------
    BASE STYLES
 --------------------------------------------- */
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -46,7 +44,6 @@ p {
 /* --------------------------------------------
    NOISE BACKGROUND (VERCEL STYLE)
 --------------------------------------------- */
-
 .noise-bg {
   position: relative;
 }
@@ -63,7 +60,6 @@ p {
 /* --------------------------------------------
    ANIMATIONS
 --------------------------------------------- */
-
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -81,9 +77,8 @@ p {
 }
 
 /* --------------------------------------------
-   AURORA BACKGROUND (FULL PREMIUM)
+   AURORA BACKGROUND
 --------------------------------------------- */
-
 .aurora {
   position: absolute;
   inset: 0;
@@ -120,7 +115,6 @@ p {
 /* --------------------------------------------
    SPOTLIGHT EFFECT
 --------------------------------------------- */
-
 .hero-spotlight {
   position: relative;
 }
@@ -142,4 +136,48 @@ p {
 
 .hero-spotlight.active::before {
   opacity: 1;
+}
+
+/* --------------------------------------------
+   PAYPAL CARD FIELD — FIX LAYOUT + SIZE
+--------------------------------------------- */
+
+.card-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+#card-number,
+#card-expiry,
+#card-cvv {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  padding: 14px;
+  font-size: 16px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+#card-number:focus,
+#card-expiry:focus,
+#card-cvv:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.25);
+}
+
+#card-expiry,
+#card-cvv {
+  flex: 1;
+}
+
+/* Align labels & spacing */
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #374151;
+  font-weight: 500;
 }

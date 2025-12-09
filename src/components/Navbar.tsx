@@ -1,38 +1,29 @@
-import Link from "next/link";
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav
-      className="
-        w-full py-3 px-6
-        bg-transparent
-        flex items-center justify-between
-        z-50
-      "
-    >
-      {/* LOGO + TEXTE COLLÉS */}
-      <Link href="/" className="flex items-center gap-2 cursor-pointer">
-
+    <nav className="w-full py-3 px-6 bg-transparent flex items-center justify-between z-50 fixed top-0 left-0 backdrop-blur-md">
+      <Link href="/" className="flex items-center gap-2">
         <Image
           src="/icon.svg"
-          alt="GoalAssist Logo"
-          width={60}  // tu peux monter à 70/80 si tu veux
-          height={60}
-          className="opacity-95 hover:opacity-100 transition"
+          alt="GoalAssist"
+          width={38}
+          height={38}
+          className="drop-shadow-lg"
         />
-
-        <span className="text-white text-2xl font-semibold tracking-tight">
+        <span className="text-white font-semibold text-lg tracking-tight">
           GoalAssist
         </span>
-
       </Link>
 
-      <div className="flex items-center gap-8 text-gray-300 text-lg">
-        <Link href="/tarifs" className="hover:text-white transition">
+      <div className="flex items-center gap-6">
+        <Link href="/tarifs" className="text-gray-200 hover:text-white transition text-sm">
           Tarifs
         </Link>
-        <Link href="/contact" className="hover:text-white transition">
+        <Link href="/contact" className="text-gray-200 hover:text-white transition text-sm">
           Contact
         </Link>
       </div>
