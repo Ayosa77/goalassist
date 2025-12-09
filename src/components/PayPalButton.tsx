@@ -21,8 +21,15 @@ export default function PayPalButton({
   useEffect(() => {
     if (!window.paypal) return;
 
+    // 🧹 IMPORTANT : on nettoie les conteneurs pour éviter les doublons
+    const containerPaypal = document.getElementById(btnIdPayPal);
+    const containerCard = document.getElementById(btnIdCard);
+
+    if (containerPaypal) containerPaypal.innerHTML = "";
+    if (containerCard) containerCard.innerHTML = "";
+
     /* ------------------------------
-       BOUTON PAYPAL OFFICIEL
+       BOUTON PAYPAL
     ------------------------------ */
     window.paypal
       .Buttons({
@@ -54,25 +61,18 @@ export default function PayPalButton({
             window.location.href = "/merci";
           });
         },
-
-        onError(err: Error) {
-          console.error("PayPal Error:", err);
-          alert("Erreur lors du paiement.");
-        },
       })
       .render(`#${btnIdPayPal}`);
 
     /* ------------------------------
-       BOUTON CARTE BANCAIRE (CARD)
-       ✔ Doit utiliser color: "black" ou "white"
-       ✔ "silver" = ERREUR PayPal → crash
+       BOUTON CARTE BANCAIRE
     ------------------------------ */
     window.paypal
       .Buttons({
         fundingSource: "card",
         style: {
           layout: "vertical",
-          color: "black", // ✔ CORRECTION
+          color: "black",
           shape: "pill",
           label: "pay",
           height: 45,
@@ -97,21 +97,13 @@ export default function PayPalButton({
             window.location.href = "/merci";
           });
         },
-
-        onError(err: Error) {
-          console.error("PayPal CARD Error:", err);
-          alert("Erreur lors du paiement par carte.");
-        },
       })
       .render(`#${btnIdCard}`);
   }, [amount]);
 
   return (
     <div className="flex flex-col gap-3 mt-4 w-full">
-      {/* PAYPAL */}
       <div id={btnIdPayPal} className="w-full"></div>
-
-      {/* CARTE BANCAIRE */}
       <div id={btnIdCard} className="w-full"></div>
     </div>
   );
